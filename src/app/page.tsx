@@ -12,7 +12,13 @@ import ScheduleItem from '@/components/ScheduleItem';
 import { setImageChangeCallback } from '@/hooks/useImageObserver';
 import { useCountdown } from '@/hooks/useCountdown';
 import guestsMap from '../../public/data/guestsMap';
+import Image from 'next/image';
 
+
+// Helper function to check if device is mobile
+const isMobile = () => {
+  return typeof window !== 'undefined' && window.innerWidth < 768;
+};
 
 export default function Home() {
   const guestParam = useSearchParams().get('guest') || '';
@@ -63,8 +69,8 @@ export default function Home() {
         onNavigate={handleNavigate}
       />
 
-      {/* Left Panel - Couple Photo - Fixed Position */}
-      <aside className="hidden md:block fixed top-0 left-0 h-screen w-3/5 overflow-hidden z-10">
+      {/* Hero Image - Mobile header / Desktop left panel */}
+      <aside className="relative h-screen w-full md:fixed md:top-0 md:left-0 md:h-screen md:w-3/5 overflow-hidden z-10">
         {/* Subtle lighting effect */}
         <div
           className="absolute top-0 left-0 w-full z-20 pointer-events-none"
@@ -79,19 +85,20 @@ export default function Home() {
           className="w-full h-full"
         />
 
-        {/* Couple Names Overlay */}
-        <div className="absolute bottom-12 md:bottom-20 left-6 md:left-20 z-20 text-white">
-          <h1 className="text-6xl md:text-7xl font-light mb-4 md:mb-6 font-[Marck_Script]">
+        {/* Hero Text Overlay - Responsive positioning and typography */}
+        <div className="absolute left-8 lg:left-12 xl:left-20 bottom-12 xl:bottom-20 px-6 z-20 text-white drop-shadow-lg">
+          <h1 className="text-6xl lg:text-7xl font-light mb-4 lg:mb-6 font-[Marck_Script]">
             Валерія & Нікіта
           </h1>
-          <p className="font-[Cormorant_Infant] text-lg md:text-xl font-medium max-w-2xl">
+          <p className="font-[Cormorant_Infant] text-lg lg:text-xl font-medium max-w-xs md:max-w-2xl">
             З нетерпінням чекаємо можливості розділити цей особливий день з вами.
           </p>
         </div>
       </aside>
 
-      {/* Right Panel - Wedding Details - Scrollable */}
+      {/* Main Content - Full width on mobile, right panel on desktop */}
       <main className="w-full md:ml-[60%] md:w-[40%] min-h-screen relative">
+        {/* Wedding Info - Mobile version below hero, Desktop version at top */}
         <MainWeddingInfo
           guestText={guestName}
           phase={phase}
@@ -101,8 +108,8 @@ export default function Home() {
         />
 
         {/* Scrollable Content for other sections */}
-        <section className="scrollable-content relative z-10 px-5 xl:px-10 2xl:px-20 py-8 space-y-12">
-          <TextSection id="our-story" heading="Наша історія" imageUrl="/img/coffee.jpg">
+        <section className="scrollable-content relative z-10 px-4 md:px-5 xl:px-10 2xl:px-20 py-6 md:py-8 space-y-8 md:space-y-12">
+          <TextSection id="our-story" heading="Наша історія" imageUrl={!isMobile() ? "/img/coffee.jpg" : undefined}>
             <p>
               Валерія та Нікіта познайомилися у університеті під час вивчення програмної інженерії.
               Спочатку вони були просто однокурсниками, але поступово їхня дружба переросла у щось більше.
@@ -111,36 +118,46 @@ export default function Home() {
             </p>
           </TextSection>
 
-          <TextSection id="dress-code" heading="Дрес код" imageUrl="/img/coffee.jpg">
+          {/* Mobile image for dress-code section */}
+          <div className="md:hidden w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] mb-8">
+            <Image
+              src="/img/coffee.jpg"
+              alt="Dress code"
+              width={1200}
+              height={400}
+              className="w-full h-64 object-cover"
+            />
+          </div>
+          <TextSection id="dress-code" heading="Дрес код" imageUrl={!isMobile() ? "/img/coffee.jpg" : undefined}>
             <p>
               Ми будемо раді бачити вас на нашому весіллі і хотіли б, щоб ваш образ гармоніював із нашою кольоровою палітрою:
             </p>
 
             <div className="mt-6 mb-8">
-              <div className="grid grid-cols-2 gap-4 leaning-none">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 leaning-none text-base font-bold text-gray-700 font-[Inter] leading-4.5">
                 <div className="flex items-center gap-4">
-                  <div className="w-8 h-8 rounded-full bg-[#4a5d3a] shadow-sm"></div>
-                  <span className="text-lg font-bold text-gray-700 font-[Inter] leading-4.5">Темно-Оливковий</span>
+                  <div className="min-w-8 h-8 rounded-full bg-[#4a5d3a] shadow-sm"></div>
+                  <span>Темно-Оливковий</span>
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="w-8 h-8 rounded-full bg-[#8b4513] shadow-sm"></div>
-                  <span className="text-lg font-bold text-gray-700 font-[Inter]">Шоколадний</span>
+                  <div className="min-w-8 h-8 rounded-full bg-[#8b4513] shadow-sm"></div>
+                  <span>Шоколадний</span>
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="w-8 h-8 rounded-full bg-[#c46f3a] shadow-sm"></div>
-                  <span className="text-lg font-bold text-gray-700 font-[Inter]">Карамельний</span>
+                  <div className="min-w-8 h-8 rounded-full bg-[#c46f3a] shadow-sm"></div>
+                  <span>Карамельний</span>
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="w-8 h-8 rounded-full bg-[#c19a6b] shadow-sm"></div>
-                  <span className="text-lg font-bold text-gray-700 font-[Inter]">Верблюжий</span>
+                  <div className="min-w-8 h-8 rounded-full bg-[#c19a6b] shadow-sm"></div>
+                  <span>Верблюжий</span>
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="w-8 h-8 rounded-full bg-[#f5f5dc] shadow-sm"></div>
-                  <span className="text-lg font-bold text-gray-700 font-[Inter]">Бежевий</span>
+                  <div className="min-w-8 h-8 rounded-full bg-[#f5f5dc] shadow-sm"></div>
+                  <span>Бежевий</span>
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="w-8 h-8 rounded-full bg-[#fff8dc] shadow-sm"></div>
-                  <span className="text-lg font-bold text-gray-700 font-[Inter]">Кремовий</span>
+                  <div className="min-w-8 h-8 rounded-full bg-[#fff8dc] shadow-sm"></div>
+                  <span>Кремовий</span>
                 </div>
               </div>
             </div>
@@ -163,7 +180,17 @@ export default function Home() {
             <br /><span className="text-red-500 font-bold">TODOTODOTODO</span>
           </TextSection>
 
-          <TextSection id="gifts" heading="Подарунки" imageUrl="/img/hug-smile.jpg">
+          {/* Mobile image for gifts section */}
+          <div className="md:hidden w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] mb-8">
+            <Image
+              src="/img/hug-smile.jpg"
+              alt="Gifts"
+              width={1200}
+              height={400}
+              className="w-full h-64 object-cover"
+            />
+          </div>
+          <TextSection id="gifts" heading="Подарунки" imageUrl={!isMobile() ? "/img/hug-smile.jpg" : undefined}>
             <p className="mb-2">
               Найкращий подарунок — підтримка нашої нової родини. Якщо бажаєте привітати нас матеріально, будемо вдячні за внесок у сімейний бюджет 💰.
             </p>
@@ -175,7 +202,7 @@ export default function Home() {
             </p>
           </TextSection>
 
-          <TextSection id="schedule" heading="Розклад" imageUrl="/img/hug-smile.jpg">
+          <TextSection id="schedule" heading="Розклад" imageUrl={!isMobile() ? "/img/hug-smile.jpg" : undefined}>
             <div>
               <ScheduleItem
                 time="13:15"
@@ -214,7 +241,17 @@ export default function Home() {
             </div>
           </TextSection>
 
-          <TextSection id="location" heading="Локація" imageUrl="/img/hug-theatre.jpg">
+          {/* Mobile image for location section */}
+          <div className="md:hidden w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] mb-8">
+            <Image
+              src="/img/hug-theatre.jpg"
+              alt="Location"
+              width={1200}
+              height={400}
+              className="w-full h-64 object-cover"
+            />
+          </div>
+          <TextSection id="location" heading="Локація" imageUrl={!isMobile() ? "/img/hug-theatre.jpg" : undefined}>
             <p className="mb-2">
               Зустрічаємося в РАГС №1 на ВДНГ — унікальній, просторій та вишуканій залі з видом на Виставковий центр та сад.
             </p>
@@ -226,7 +263,7 @@ export default function Home() {
             </p>
           </TextSection>
 
-          <TextSection id="faq" heading="Питання та відповіді" imageUrl="/img/main-kiss.jpg">
+          <TextSection id="faq" heading="Питання та відповіді" imageUrl={!isMobile() ? "/img/main-kiss.jpg" : undefined}>
             <div className="flex flex-col gap-14">
               <QuestionAndAnswer
                 question="Чи можу я привести дитину?"
@@ -249,6 +286,17 @@ export default function Home() {
               />
             </div>
           </TextSection>
+
+          {/* Mobile image for faq section */}
+          <div className="md:hidden w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] mb-8">
+            <Image
+              src="/img/main-kiss.jpg"
+              alt="FAQ"
+              width={1200}
+              height={400}
+              className="w-full h-64 object-cover"
+            />
+          </div>
         </section>
       </main>
     </div>

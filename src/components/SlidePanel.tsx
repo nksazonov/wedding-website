@@ -53,7 +53,7 @@ export default function SlidePanel({ isOpen, sections, onClose, onNavigate }: Sl
 
       {/* Slide Panel */}
       <aside
-        className="fixed left-0 top-0 h-screen w-4/5 md:w-1/5 max-w-xs bg-white/100 z-50 transition-all duration-300 ease-in-out backdrop-blur-sm"
+        className="fixed left-0 top-0 h-screen w-4/5 md:w-2/5 xl:w-1/5 max-w-xs bg-white/100 z-50 transition-all duration-300 ease-in-out backdrop-blur-sm"
         style={{
           transform: isOpen ? 'translateX(0)' : 'translateX(-100%)',
           opacity: isOpen ? 1 : 0,
@@ -62,7 +62,7 @@ export default function SlidePanel({ isOpen, sections, onClose, onNavigate }: Sl
         {/* Header */}
         <div className="p-4 md:p-6 border-b border-gray-300/50">
           <div className="flex justify-between items-start">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-light font-[Marck_Script] text-gray-800">
+            <h2 className="text-4xl xl:text-5xl font-light font-[Marck_Script] text-gray-800">
               Валерія & Нікіта
             </h2>
             <button
