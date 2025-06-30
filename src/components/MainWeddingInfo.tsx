@@ -5,7 +5,7 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { useImageObserver } from '@/hooks/useImageObserver';
 
 interface MainWeddingInfoProps {
-  guestName: string;
+  guestText?: string;
   phase: string;
   displayText: string;
   formattedCountdown: string;
@@ -13,13 +13,14 @@ interface MainWeddingInfoProps {
 }
 
 export default function MainWeddingInfo({
-  guestName,
+  guestText,
   phase,
   displayText,
   formattedCountdown,
   imageUrl
 }: MainWeddingInfoProps) {
   const sectionRef = useImageObserver<HTMLDivElement>(imageUrl);
+  const hasGuestText = guestText && guestText != '';
 
   return (
     <div className="relative h-screen" ref={sectionRef}>
@@ -27,10 +28,25 @@ export default function MainWeddingInfo({
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: 'url(/pictures/bohemian-bg.webp)' }}
       />
-      <div className="relative z-10 text-center text-gray-800 h-screen flex flex-col justify-center px-8">
-        <h2 className="text-4xl font-[Cormorant_Infant]">Середа</h2>
-        <p className="text-4xl mb-5 font-[Cormorant_Infant]">3 Вересня, 2025</p>
-        <p className="text-2xl text-gray-600 mb-5 font-[Cormorant_Infant]">Київ, ВДНГ</p>
+      <div className="relative z-10 text-center text-gray-800 h-screen flex flex-col justify-center px-10">
+        {hasGuestText ? (
+          // Guest-specific layout
+          <>
+            <p className="text-4xl mb-3 font-[Cormorant_Infant] font-bold px-16">{guestText}</p>
+            <p className="text-lg mb-8 font-[Cormorant_Infant] italic text-gray-700 px-10">
+              Запрошуємо вас розділити з нами радість нашого весілля!
+            </p>
+            <h2 className="text-2xl font-[Cormorant_Infant]">Середа, 3 Вересня, 2025</h2>
+            <p className="text-2xl text-gray-600 mb-5 font-[Cormorant_Infant]">Київ, ВДНГ</p>
+          </>
+        ) : (
+          // Default layout
+          <>
+            <h2 className="text-4xl font-[Cormorant_Infant]">Середа</h2>
+            <p className="text-4xl mb-5 font-[Cormorant_Infant]">3 Вересня, 2025</p>
+            <p className="text-2xl text-gray-600 mb-5 font-[Cormorant_Infant]">Київ, ВДНГ</p>
+          </>
+        )}
 
         <div className="text-center mb-16">
           {phase === 'before' && (
@@ -51,7 +67,7 @@ export default function MainWeddingInfo({
         </div>
 
         <div
-          className="text-center mb-6 cursor-pointer"
+          className="text-center cursor-pointer absolute bottom-8 left-1/2 transform -translate-x-1/2"
           onClick={() => {
             const nextSection = document.querySelector('.scrollable-content');
             if (nextSection) {
@@ -59,27 +75,34 @@ export default function MainWeddingInfo({
             }
           }}
         >
-          <p className="text-md font-light font-[Inter] mb-2">Дивитися деталі</p>
-          <div className="flex justify-center">
+            <style jsx>{`
+                    @keyframes bounceWide {
+                      0%, 10%, 26%, 40%, 100% {
+                        transform: scaleX(2) translateY(0);
+                      }
+                      20%, 22% {
+                        transform: scaleX(2) translateY(5px);
+                      }
+                      35% {
+                        transform: scaleX(2) translateY(5px);
+                      }
+                    }
+                  `}
+            </style>
+
+            <p className="text-md font-light font-[Inter] mb-2">Дивитися деталі</p>
+            <div className="flex justify-center">
             <FontAwesomeIcon
               icon={faChevronDown}
               className="text-2xl text-gray-500"
               style={{
-                animation: 'bounceWide 2s 4s infinite',
-                transform: 'scaleX(2)',
-                display: 'inline-block',
+              animation: '4s bounceWide 0s infinite',
+              transform: 'scaleX(2)',
+              display: 'inline-block',
               }}
             />
-          </div>
+            </div>
         </div>
-
-        {guestName !== 'Dear Guest' && (
-          <div className="p-4 bg-white/50 backdrop-blur-sm rounded-lg">
-            <p className="text-lg text-gray-700" style={{ fontFamily: 'Cormorant Infant', fontWeight: 300 }}>
-              Welcome, <span className="font-semibold" style={{ fontFamily: 'Cormorant Infant', fontWeight: 400 }}>{guestName}</span>!
-            </p>
-          </div>
-        )}
       </div>
     </div>
   );

@@ -11,11 +11,12 @@ import QuestionAndAnswer from '@/components/QuestionAndAnswer';
 import ScheduleItem from '@/components/ScheduleItem';
 import { setImageChangeCallback } from '@/hooks/useImageObserver';
 import { useCountdown } from '@/hooks/useCountdown';
+import guestsMap from '../../public/data/guestsMap';
 
 
 export default function Home() {
-  const searchParams = useSearchParams();
-  const guestName = searchParams.get('guest') || 'Dear Guest';
+  const guestParam = useSearchParams().get('guest') || '';
+  const guestName = guestsMap[guestParam]?.text || '';
   const [currentImageSrc, setCurrentImageSrc] = useState('/img/main-kiss.JPG');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -53,19 +54,6 @@ export default function Home() {
 
   return (
     <div className="bg-white">
-      <style jsx>{`
-        @keyframes bounceWide {
-          0%, 20%, 53%, 80%, 100% {
-            transform: scaleX(2) translateY(0);
-          }
-          40%, 43% {
-            transform: scaleX(2) translateY(5px);
-          }
-          70% {
-            transform: scaleX(2) translateY(5px);
-          }
-        }
-      `}</style>
       {/* Menu System */}
       <MenuButton onToggle={handleMenuToggle} />
       <SlidePanel
@@ -105,7 +93,7 @@ export default function Home() {
       {/* Right Panel - Wedding Details - Scrollable */}
       <div className="ml-[61%] w-[39%] min-h-screen relative">
         <MainWeddingInfo
-          guestName={guestName}
+          guestText={guestName}
           phase={phase}
           displayText={displayText}
           formattedCountdown={formattedCountdown}
