@@ -34,7 +34,7 @@ export default function MainWeddingInfo({
           <>
             <p className="text-3xl md:text-4xl lg:text-5xl 2xl:text-6xl mb-3 font-[Cormorant_Infant] font-bold px-4 md:px-16">{guestText}</p>
             <p className="text-base md:text-lg lg:text-xl 2xl:text-2xl mb-8 xl:mb-12 font-[Cormorant_Infant] italic text-gray-700 px-2 md:px-10">
-              Запрошуємо вас розділити з нами радість нашого весілля!
+              Запрошуємо Вас розділити з нами радість нашого весілля!
             </p>
             <h2 className="text-xl md:text-2xl lg:text-3xl 2xl:text-4xl font-[Cormorant_Infant]">Середа, 3 Вересня, 2025</h2>
             <p className="text-xl md:text-2xl lg:text-3xl 2xl:text-4xl text-gray-600 mb-5 xl:mb-12 font-[Cormorant_Infant]">Київ, ВДНГ</p>
