@@ -1,18 +1,28 @@
 'use client';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import Image from 'next/image';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { useSearchParams } from 'next/navigation';
+import { useState, useEffect } from 'react';
 import TextSection from '@/components/TextSection';
+import ScrolledImage from '@/components/ScrolledImage';
+import MainWeddingInfo from '@/components/MainWeddingInfo';
+import { setImageChangeCallback } from '@/hooks/useImageObserver';
 import { useCountdown } from '@/hooks/useCountdown';
 
 
 export default function Home() {
   const searchParams = useSearchParams();
   const guestName = searchParams.get('guest') || 'Dear Guest';
+  const [currentImageSrc, setCurrentImageSrc] = useState('/img/main-kiss.JPG');
 
   const { phase, displayText, formattedCountdown } = useCountdown();
+
+  useEffect(() => {
+    setImageChangeCallback((src: string) => {
+      setCurrentImageSrc(src);
+    });
+  }, []);
 
   return (
     <div className="bg-white">
@@ -47,13 +57,10 @@ export default function Home() {
             background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, transparent 50%)'
           }}
         ></div>
-        <div className="absolute inset-0 bg-black/20 z-10"></div>
-        <Image
-          src="/img/main-kiss.JPG"
-          alt="Валерія & Нікіта"
-          fill
-          className="object-cover"
-          priority
+        <ScrolledImage
+          src={currentImageSrc}
+          fadeDuration={1500}
+          className="w-full h-full"
         />
 
         {/* Couple Names Overlay */}
@@ -69,75 +76,17 @@ export default function Home() {
 
       {/* Right Panel - Wedding Details - Scrollable */}
       <div className="ml-[61%] w-[39%] min-h-screen relative">
-        {/* Main Wedding Info - Full Height with Background */}
-        <div className="relative h-screen">
-          <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: 'url(/pictures/bohemian-bg.webp)' }}
-          />
-          <div className="relative z-10 text-center text-gray-800 h-screen flex flex-col justify-center px-8">
-
-            <h2 className="text-4xl font-[Cormorant_Infant]">Середа</h2>
-            <p className="text-4xl mb-5 font-[Cormorant_Infant]">3 Вересня, 2025</p>
-            <p className="text-2xl text-gray-600 mb-5 font-[Cormorant_Infant]">Київ, ВДНГ</p>
-
-            {/* Countdown */}
-            <div className="text-center mb-16">
-              {phase === 'before' && (
-                <p className="text-md font-[Inter] font-light">
-                  {formattedCountdown}
-                </p>
-              )}
-              {phase === 'during' && (
-                <p className="text-lg font-[Cormorant_Infant] font-medium text-pink-600">
-                  {displayText}
-                </p>
-              )}
-              {phase === 'after' && (
-                <p className="text-lg font-[Cormorant_Infant] font-medium text-green-600">
-                  {displayText}
-                </p>
-              )}
-            </div>
-
-            {/* Scroll down indicator */}
-            <div
-              className="text-center mb-6 cursor-pointer"
-              onClick={() => {
-                const nextSection = document.querySelector('.scrollable-content');
-                if (nextSection) {
-                  nextSection.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
-            >
-              <p className="text-md font-light font-[Inter] mb-2">Дивитися деталі</p>
-              <div className="flex justify-center">
-                <FontAwesomeIcon
-                  icon={faChevronDown}
-                  className="text-2xl text-gray-500"
-                  style={{
-                    animation: 'bounceWide 2s 4s infinite',
-                    transform: 'scaleX(2)',
-                    display: 'inline-block',
-                  }}
-                />
-              </div>
-            </div>
-
-            {/* Welcome message for guest */}
-            {guestName !== 'Dear Guest' && (
-              <div className="p-4 bg-white/50 backdrop-blur-sm rounded-lg">
-                <p className="text-lg text-gray-700" style={{ fontFamily: 'Cormorant Infant', fontWeight: 300 }}>
-                  Welcome, <span className="font-semibold" style={{ fontFamily: 'Cormorant Infant', fontWeight: 400 }}>{guestName}</span>!
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
+        <MainWeddingInfo
+          guestName={guestName}
+          phase={phase}
+          displayText={displayText}
+          formattedCountdown={formattedCountdown}
+          imageUrl="/img/main-kiss.JPG"
+        />
 
         {/* Scrollable Content for other sections */}
         <div className="scrollable-content relative z-10 py-8 px-8">
-          <TextSection heading="Наша історія">
+          <TextSection heading="Наша історія" imageUrl="/img/second-coffee.JPG">
             <p>
               Валерія та Нікіта познайомилися у університеті під час вивчення програмної інженерії.
               Спочатку вони були просто однокурсниками, але поступово їхня дружба переросла у щось більше.
@@ -148,7 +97,7 @@ export default function Home() {
 
           <TextSection heading="Дрес код">
             <p>
-              Ми дуже раді, що ви будете з нами у цей особливий день! Просимо дотримуватися напівформального дрес-коду.
+              Ми дуже раді, що ви будете з нами у цей осоtelбливий день! Просимо дотримуватися напівформального дрес-коду.
               Чоловікам рекомендуємо костюми у темних тонах або елегантні сорочки з брюками.
               Жінкам підійдуть сукні міді або максі довжини у пастельних або насичених тонах.
               Будь ласка, уникайте білих відтінків, щоб не затьмарити наречену у її особливий день.
@@ -174,7 +123,7 @@ export default function Home() {
             </p>
           </TextSection>
 
-          <TextSection heading="Локація">
+          <TextSection heading="Локація" imageUrl="/img/second-coffee.JPG">
             <p>
               Наше весілля відбудеться у мальовничому комплексі на території ВДНГ у Києві.
               Це унікальне місце поєднує в собі красу природи та елегантність архітектури.
@@ -184,7 +133,7 @@ export default function Home() {
             </p>
           </TextSection>
 
-          <TextSection heading="Питання та відповіді">
+          <TextSection heading="Питання та відповіді" imageUrl="/img/main-kiss.JPG">
             <p>
               Чи можу я привести дитину? Так, діти завжди вітаються на нашому святі!
               Чи буде безкоштовний бар? Так, усі напої включені у вартість банкету.
