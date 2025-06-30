@@ -1,12 +1,12 @@
 'use client';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import TextSection from '@/components/TextSection';
 import ScrolledImage from '@/components/ScrolledImage';
 import MainWeddingInfo from '@/components/MainWeddingInfo';
+import MenuButton from '@/components/MenuButton';
+import SlidePanel from '@/components/SlidePanel';
 import { setImageChangeCallback } from '@/hooks/useImageObserver';
 import { useCountdown } from '@/hooks/useCountdown';
 
@@ -15,14 +15,39 @@ export default function Home() {
   const searchParams = useSearchParams();
   const guestName = searchParams.get('guest') || 'Dear Guest';
   const [currentImageSrc, setCurrentImageSrc] = useState('/img/main-kiss.JPG');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const { phase, displayText, formattedCountdown } = useCountdown();
+
+  const sections = [
+    { id: 'our-story', label: 'Наша історія' },
+    { id: 'dress-code', label: 'Дрес код' },
+    { id: 'gifts', label: 'Подарунки' },
+    { id: 'schedule', label: 'Розклад' },
+    { id: 'location', label: 'Локація' },
+    { id: 'faq', label: 'Питання та відповіді' },
+  ];
 
   useEffect(() => {
     setImageChangeCallback((src: string) => {
       setCurrentImageSrc(src);
     });
   }, []);
+
+  const handleMenuToggle = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleMenuClose = () => {
+    setIsMenuOpen(false);
+  };
+
+  const handleNavigate = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <div className="bg-white">
@@ -39,13 +64,14 @@ export default function Home() {
           }
         }
       `}</style>
-      {/* Navigation */}
-      <div className="fixed top-6 left-6 z-30">
-        <button className="flex items-center gap-2 text-white/80 hover:text-white transition-colors">
-          <FontAwesomeIcon icon={faBars} className="text-lg" />
-          <span className="text-sm font-medium">MENU</span>
-        </button>
-      </div>
+      {/* Menu System */}
+      <MenuButton onToggle={handleMenuToggle} />
+      <SlidePanel
+        isOpen={isMenuOpen}
+        sections={sections}
+        onClose={handleMenuClose}
+        onNavigate={handleNavigate}
+      />
 
       {/* Left Panel - Couple Photo - Fixed Position */}
       <div className="fixed left-0 top-0 w-[61%] h-screen overflow-hidden z-10">
@@ -68,7 +94,7 @@ export default function Home() {
           <h1 className="text-7xl font-light mb-6 font-[Marck_Script]">
             Валерія & Нікіта
           </h1>
-          <p className="font-[Cormorant_Infant] text-xl font-medium opacity-90 max-w-2xl">
+          <p className="font-[Cormorant_Infant] text-xl font-medium max-w-2xl">
             З нетерпінням чекаємо можливості розділити цей особливий день з вами.
           </p>
         </div>
@@ -86,7 +112,7 @@ export default function Home() {
 
         {/* Scrollable Content for other sections */}
         <div className="scrollable-content relative z-10 py-8 px-8">
-          <TextSection heading="Наша історія" imageUrl="/img/second-coffee.JPG">
+          <TextSection id="our-story" heading="Наша історія" imageUrl="/img/second-coffee.JPG">
             <p>
               Валерія та Нікіта познайомилися у університеті під час вивчення програмної інженерії.
               Спочатку вони були просто однокурсниками, але поступово їхня дружба переросла у щось більше.
@@ -95,7 +121,7 @@ export default function Home() {
             </p>
           </TextSection>
 
-          <TextSection heading="Дрес код">
+          <TextSection id="dress-code" heading="Дрес код">
             <p>
               Ми дуже раді, що ви будете з нами у цей осоtelбливий день! Просимо дотримуватися напівформального дрес-коду.
               Чоловікам рекомендуємо костюми у темних тонах або елегантні сорочки з брюками.
@@ -104,7 +130,7 @@ export default function Home() {
             </p>
           </TextSection>
 
-          <TextSection heading="Подарунки">
+          <TextSection id="gifts" heading="Подарунки">
             <p>
               Ваша присутність на нашому весіллі - це найкращий подарунок, який ми можемо отримати!
               Якщо ви все ж таки хочете подарувати нам щось особливе, ми будемо вдячні за будь-який внесок
@@ -113,7 +139,7 @@ export default function Home() {
             </p>
           </TextSection>
 
-          <TextSection heading="Розклад">
+          <TextSection id="schedule" heading="Розклад">
             <p>
               День нашого весілля буде насичений емоціями та святковими подіями!
               Урочиста церемонія розпочнеться о 16:00 у красивому парку ВДНГ.
@@ -123,7 +149,7 @@ export default function Home() {
             </p>
           </TextSection>
 
-          <TextSection heading="Локація" imageUrl="/img/second-coffee.JPG">
+          <TextSection id="location" heading="Локація" imageUrl="/img/second-coffee.JPG">
             <p>
               Наше весілля відбудеться у мальовничому комплексі на території ВДНГ у Києві.
               Це унікальне місце поєднує в собі красу природи та елегантність архітектури.
@@ -133,7 +159,7 @@ export default function Home() {
             </p>
           </TextSection>
 
-          <TextSection heading="Питання та відповіді" imageUrl="/img/main-kiss.JPG">
+          <TextSection id="faq" heading="Питання та відповіді" imageUrl="/img/main-kiss.JPG">
             <p>
               Чи можу я привести дитину? Так, діти завжди вітаються на нашому святі!
               Чи буде безкоштовний бар? Так, усі напої включені у вартість банкету.

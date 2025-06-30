@@ -48,8 +48,6 @@ export default function ScrolledImage({
 
   return (
     <div className={`relative overflow-hidden ${className}`}>
-      <div className="absolute inset-0 bg-black/20 z-30"></div>
-
       {/* Bottom layer - current image */}
       <div className="absolute inset-0">
         <Image
@@ -87,6 +85,8 @@ export default function ScrolledImage({
           />
         </div>
       )}
+
+      <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.4)_0%,rgba(0,0,0,0.4)_10%,rgba(0,0,0,0)_33%)]"></div>
     </div>
   );
 }
