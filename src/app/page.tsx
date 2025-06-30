@@ -64,7 +64,7 @@ export default function Home() {
       />
 
       {/* Left Panel - Couple Photo - Fixed Position */}
-      <div className="fixed left-0 top-0 w-[61%] h-screen overflow-hidden z-10">
+      <aside className="hidden md:block fixed top-0 left-0 h-screen w-3/5 overflow-hidden z-10">
         {/* Subtle lighting effect */}
         <div
           className="absolute top-0 left-0 w-full z-20 pointer-events-none"
@@ -80,18 +80,18 @@ export default function Home() {
         />
 
         {/* Couple Names Overlay */}
-        <div className="absolute bottom-20 left-20 z-20 text-white">
-          <h1 className="text-7xl font-light mb-6 font-[Marck_Script]">
+        <div className="absolute bottom-12 md:bottom-20 left-6 md:left-20 z-20 text-white">
+          <h1 className="text-6xl md:text-7xl font-light mb-4 md:mb-6 font-[Marck_Script]">
             Валерія & Нікіта
           </h1>
-          <p className="font-[Cormorant_Infant] text-xl font-medium max-w-2xl">
+          <p className="font-[Cormorant_Infant] text-lg md:text-xl font-medium max-w-2xl">
             З нетерпінням чекаємо можливості розділити цей особливий день з вами.
           </p>
         </div>
-      </div>
+      </aside>
 
       {/* Right Panel - Wedding Details - Scrollable */}
-      <div className="ml-[61%] w-[39%] min-h-screen relative">
+      <main className="w-full md:ml-[60%] md:w-[40%] min-h-screen relative">
         <MainWeddingInfo
           guestText={guestName}
           phase={phase}
@@ -101,7 +101,7 @@ export default function Home() {
         />
 
         {/* Scrollable Content for other sections */}
-        <div className="scrollable-content relative z-10 py-8 px-8">
+        <section className="scrollable-content relative z-10 px-5 xl:px-10 2xl:px-20 py-8 space-y-12">
           <TextSection id="our-story" heading="Наша історія" imageUrl="/img/coffee.jpg">
             <p>
               Валерія та Нікіта познайомилися у університеті під час вивчення програмної інженерії.
@@ -249,8 +249,8 @@ export default function Home() {
               />
             </div>
           </TextSection>
-        </div>
-        </div>
-      </div>
+        </section>
+      </main>
+    </div>
   );
 }
