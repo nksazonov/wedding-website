@@ -322,6 +322,43 @@ export default function Home() {
             </div>
           </TextSection>
 
+          <TextSection id="photo-upload" heading="Фотографії з події" imageUrl={!isMobile() ? "/img/main-kiss.jpg" : undefined}>
+            <p className="mb-2">
+              Заздалегідь просимо усіх гостей робити якомога більше фотографій під час події, і опісля весілля завантажити їх на платформу для обміну фотографіями.
+            </p>
+            <p className="mb-2">
+              Також ви можете переглянути та завантажити фотографії, що зробили інші гості.
+            </p>
+            <a
+              href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&pp=ygUJcmljayByb2xs"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full max-w-3xs mx-auto aspect-square mb-2 hover:shadow-lg">
+              <Image
+                src="/pictures/image-sharing-qr.png"
+                alt="QR Code for photo upload"
+                width={400}
+                height={400}
+                className="w-full h-full object-contain"
+              />
+            </a>
+            <p className='mb-6 text-gray-400 text-sm'>
+              Для переходу на платформу для обміну фотографіями, відскануйте QR-код камерою телефону або натисніть на нього
+            </p>
+            <p>
+              Посилання на матеріали нашого фотографа:
+            </p>
+            <p>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 underline cursor-not-allowed pointer-events-none"
+              >
+                ⏳ скоро стане доступним ⏳
+              </a>
+            </p>
+          </TextSection>
+
           {/* Mobile image for faq section */}
           <div className="md:hidden w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] mb-8">
             <Image
