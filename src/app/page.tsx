@@ -9,6 +9,7 @@ import MenuButton from '@/components/MenuButton';
 import SlidePanel from '@/components/SlidePanel';
 import QuestionAndAnswer from '@/components/QuestionAndAnswer';
 import ScheduleItem from '@/components/ScheduleItem';
+import LoadingSpinner from '@/components/LoadingSpinner';
 import { setImageChangeCallback } from '@/hooks/useImageObserver';
 import { useCountdown } from '@/hooks/useCountdown';
 import guestsMap from '../../public/data/guestsMap';
@@ -26,6 +27,8 @@ export default function Home() {
   const guestName = guestsMap[guestParam]?.text || '';
   const [currentImageSrc, setCurrentImageSrc] = useState('/img/main-kiss.JPG');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
+  const [isReady, setIsReady] = useState(false);
 
   const { phase, displayText, formattedCountdown } = useCountdown();
 
@@ -43,7 +46,27 @@ export default function Home() {
     setImageChangeCallback((src: string) => {
       setCurrentImageSrc(src);
     });
-  }, []);
+
+    // Check if device is mobile on client side
+    const checkMobile = () => {
+      setIsMobileDevice(typeof window !== 'undefined' && window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    // Set ready state after mobile detection and guest parameter are available
+    setIsReady(true);
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, [guestName]); // Add guestName as dependency
+
+  // Helper function to check if MainWeddingInfo should be shown first on mobile
+  const shouldShowMainWeddingInfoFirst = (guestName: string) => {
+    return isMobileDevice && guestName !== '';
+  };
 
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -60,6 +83,11 @@ export default function Home() {
     }
   };
 
+  // Show loading state until everything is ready
+  if (!isReady) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <div className="bg-white">
       {/* Menu System */}
@@ -71,47 +99,97 @@ export default function Home() {
         onNavigate={handleNavigate}
       />
 
-      {/* Hero Image - Mobile header / Desktop left panel */}
-      <aside className="relative h-screen w-full md:fixed md:top-0 md:left-0 md:h-screen md:w-3/5 overflow-hidden z-10">
-        {/* Subtle lighting effect */}
-        <div
-          className="absolute top-0 left-0 w-full z-20 pointer-events-none"
-          style={{
-            height: '50vh',
-            background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, transparent 50%)'
-          }}
-        ></div>
-        <ScrolledImage
-          src={currentImageSrc}
-          fadeDuration={1500}
-          className="w-full h-full"
-        />
+      {/* Conditional rendering based on mobile + guest status */}
+      {shouldShowMainWeddingInfoFirst(guestName) ? (
+        // Mobile with guest: MainWeddingInfo first, then Hero Image
+        <>
+          <main className="w-full md:ml-[60%] md:w-[40%] min-h-screen relative">
+            <MainWeddingInfo
+              guestText={guestName}
+              phase={phase}
+              displayText={displayText}
+              formattedCountdown={formattedCountdown}
+              imageUrl="/img/main-kiss.jpg"
+            />
+          </main>
 
-        {/* Hero Text Overlay - Responsive positioning and typography */}
-        <div className="absolute left-8 lg:left-12 xl:left-20 bottom-12 xl:bottom-20 px-6 z-20 text-white drop-shadow-lg">
-          <h1 className="text-6xl lg:text-7xl font-light mb-4 lg:mb-6 font-[Marck_Script]">
-            Валерія & Нікіта
-          </h1>
-          <p className="font-[Cormorant_Infant] text-lg lg:text-xl font-medium max-w-xs md:max-w-2xl">
-            З нетерпінням чекаємо можливості розділити цей особливий день з вами.
-          </p>
-        </div>
-      </aside>
+          {/* Hero Image - Mobile with guest version */}
+          <aside className="relative h-screen w-full md:fixed md:top-0 md:left-0 md:h-screen md:w-3/5 overflow-hidden z-10">
+            {/* Subtle lighting effect */}
+            <div
+              className="absolute top-0 left-0 w-full z-20 pointer-events-none"
+              style={{
+                height: '50vh',
+                background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, transparent 50%)'
+              }}
+            ></div>
+            <ScrolledImage
+              src={currentImageSrc}
+              fadeDuration={1500}
+              className="w-full h-full"
+            />
 
-      {/* Main Content - Full width on mobile, right panel on desktop */}
-      <main className="w-full md:ml-[60%] md:w-[40%] min-h-screen relative">
-        {/* Wedding Info - Mobile version below hero, Desktop version at top */}
-        <MainWeddingInfo
-          guestText={guestName}
-          phase={phase}
-          displayText={displayText}
-          formattedCountdown={formattedCountdown}
-          imageUrl="/img/main-kiss.jpg"
-        />
+            {/* Hero Text Overlay - Responsive positioning and typography */}
+            <div className="absolute left-8 lg:left-12 xl:left-20 bottom-12 xl:bottom-20 px-6 z-20 text-white drop-shadow-lg">
+              <h1 className="text-6xl lg:text-7xl font-light mb-4 lg:mb-6 font-[Marck_Script]">
+                Валерія & Нікіта
+              </h1>
+              <p className="font-[Cormorant_Infant] text-lg lg:text-xl font-medium max-w-xs md:max-w-2xl">
+                З нетерпінням чекаємо можливості розділити цей особливий день з вами.
+              </p>
+            </div>
+          </aside>
+        </>
+      ) : (
+        // Default layout: Hero Image first, then MainWeddingInfo
+        <>
+          {/* Hero Image - Mobile header / Desktop left panel */}
+          <aside className="relative h-screen w-full md:fixed md:top-0 md:left-0 md:h-screen md:w-3/5 overflow-hidden z-10">
+            {/* Subtle lighting effect */}
+            <div
+              className="absolute top-0 left-0 w-full z-20 pointer-events-none"
+              style={{
+                height: '50vh',
+                background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, transparent 50%)'
+              }}
+            ></div>
+            <ScrolledImage
+              src={currentImageSrc}
+              fadeDuration={1500}
+              className="w-full h-full"
+            />
+
+            {/* Hero Text Overlay - Responsive positioning and typography */}
+            <div className="absolute left-8 lg:left-12 xl:left-20 bottom-12 xl:bottom-20 px-6 z-20 text-white drop-shadow-lg">
+              <h1 className="text-6xl lg:text-7xl font-light mb-4 lg:mb-6 font-[Marck_Script]">
+                Валерія & Нікіта
+              </h1>
+              <p className="font-[Cormorant_Infant] text-lg lg:text-xl font-medium max-w-xs md:max-w-2xl">
+                З нетерпінням чекаємо можливості розділити цей особливий день з вами.
+              </p>
+            </div>
+          </aside>
+
+          {/* Main Content - Full width on mobile, right panel on desktop */}
+          <main className="w-full md:ml-[60%] md:w-[40%] min-h-screen relative">
+            {/* Wedding Info - Mobile version below hero, Desktop version at top */}
+            <MainWeddingInfo
+              guestText={guestName}
+              phase={phase}
+              displayText={displayText}
+              formattedCountdown={formattedCountdown}
+              imageUrl="/img/main-kiss.jpg"
+            />
+          </main>
+        </>
+      )}
+
+      {/* Scrollable Content - Always at the bottom */}
+      <main className={`w-full ${!shouldShowMainWeddingInfoFirst(guestName) ? 'md:ml-[60%] md:w-[40%]' : ''} min-h-screen relative`}>
 
         {/* Scrollable Content for other sections */}
         <section className="scrollable-content relative z-10 px-4 md:px-5 xl:px-10 2xl:px-20 py-6 md:py-8 space-y-8 md:space-y-12">
-          <TextSection id="our-story" heading="Наша історія" imageUrl={!isMobile() ? "/img/coffee.jpg" : undefined}>
+          <TextSection id="our-story" heading="Наша історія" imageUrl={!isMobileDevice ? "/img/coffee.jpg" : undefined}>
             <p className="mb-4">
               Валерія та Нікіта вперше перетнулися на «швидких побаченнях» на факультеті кібернетики КНУ: вона прийшла заради знижки для подруги, він — із цікавості. Хоча перша зустріч не обіцяла романтики (Валерія не шукала стосунків), вони обмінялися контактами.
             </p>
@@ -133,7 +211,7 @@ export default function Home() {
               className="w-full h-64 object-cover"
             />
           </div>
-          <TextSection id="dress-code" heading="Дрес код" imageUrl={!isMobile() ? "/img/coffee.jpg" : undefined}>
+          <TextSection id="dress-code" heading="Дрес код" imageUrl={!isMobileDevice ? "/img/coffee.jpg" : undefined}>
             <p>
               Ми будемо раді бачити вас на нашому весіллі і хотіли б, щоб ваш образ гармоніював із нашою кольоровою палітрою:
             </p>
@@ -190,7 +268,7 @@ export default function Home() {
               className="w-full h-64 object-cover"
             />
           </div>
-          <TextSection id="gifts" heading="Подарунки" imageUrl={!isMobile() ? "/img/hug-smile.jpg" : undefined}>
+          <TextSection id="gifts" heading="Подарунки" imageUrl={!isMobileDevice ? "/img/hug-smile.jpg" : undefined}>
             <p className="mb-2">
               Найкращий подарунок — підтримка нашої нової родини. Якщо бажаєте привітати нас матеріально, будемо вдячні за внесок у сімейний бюджет 💰.
             </p>
@@ -199,7 +277,7 @@ export default function Home() {
             </p>
           </TextSection>
 
-          <TextSection id="schedule" heading="Розклад" imageUrl={!isMobile() ? "/img/hug-smile.jpg" : undefined}>
+          <TextSection id="schedule" heading="Розклад" imageUrl={!isMobileDevice ? "/img/hug-smile.jpg" : undefined}>
             <div>
               <ScheduleItem
                 time="13:15"
@@ -248,7 +326,7 @@ export default function Home() {
               className="w-full h-64 object-cover"
             />
           </div>
-          <TextSection id="location" heading="Локація" imageUrl={!isMobile() ? "/img/hug-theatre.jpg" : undefined}>
+          <TextSection id="location" heading="Локація" imageUrl={!isMobileDevice ? "/img/hug-theatre.jpg" : undefined}>
             <p className="mb-2">
               Зустрічаємося в РАГС №1 на ВДНГ — унікальній, просторій та вишуканій залі з видом на Виставковий центр та сад.
             </p>
@@ -262,7 +340,7 @@ export default function Home() {
             <GoogleMapComponent className="mt-6" />
           </TextSection>
 
-          <TextSection id="faq" heading="Питання та відповіді" imageUrl={!isMobile() ? "/img/main-kiss.jpg" : undefined}>
+          <TextSection id="faq" heading="Питання та відповіді" imageUrl={!isMobileDevice ? "/img/main-kiss.jpg" : undefined}>
             <div className="flex flex-col gap-14">
               <QuestionAndAnswer
                 question="Як пройти в ресторан після закінчення церемонії?"
