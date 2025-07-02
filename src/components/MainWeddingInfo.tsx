@@ -36,14 +36,14 @@ export default function MainWeddingInfo({
             <p className="text-base md:text-lg lg:text-xl 2xl:text-2xl mb-8 xl:mb-12 font-[Cormorant_Infant] italic text-gray-700 px-2 md:px-10">
               Запрошуємо Вас розділити з нами радість нашого весілля!
             </p>
-            <h2 className="text-xl md:text-2xl lg:text-3xl 2xl:text-4xl font-[Cormorant_Infant]">Середа, 3 Вересня, 2025</h2>
+            <h2 className="text-xl md:text-2xl lg:text-3xl 2xl:text-4xl font-[Cormorant_Infant]">Середа, 3 Вересня, 13:15</h2>
             <p className="text-xl md:text-2xl lg:text-3xl 2xl:text-4xl text-gray-600 mb-5 xl:mb-12 font-[Cormorant_Infant]">Київ, ВДНГ</p>
           </>
         ) : (
           // Default layout
           <>
             <h2 className="text-3xl md:text-4xl lg:text-5xl 2xl:text-6xl font-[Cormorant_Infant]">Середа</h2>
-            <p className="text-3xl md:text-4xl lg:text-5xl 2xl:text-6xl mb-5 xl:mb-12 font-[Cormorant_Infant]">3 Вересня, 2025</p>
+            <p className="text-3xl md:text-4xl lg:text-5xl 2xl:text-6xl mb-5 xl:mb-12 font-[Cormorant_Infant]">3 Вересня, 13:15</p>
             <p className="text-xl md:text-2xl lg:text-3xl 2xl:text-4xl text-gray-600 mb-5 xl:mb-11 font-[Cormorant_Infant]">Київ, ВДНГ</p>
           </>
         )}
