@@ -205,10 +205,10 @@ export default function Home() {
           <div className="md:hidden w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] mb-8">
             <Image
               src="/img/coffee.jpg"
-              alt="Dress code"
+              alt="Romantic coffee"
               width={1200}
-              height={400}
-              className="w-full h-64 object-cover"
+              height={600}
+              className="w-full h-80 object-cover object-[0%_35%]"
             />
           </div>
           <TextSection id="dress-code" heading="Дрес код" imageUrl={!isMobileDevice ? "/img/coffee.jpg" : undefined}>
@@ -265,7 +265,7 @@ export default function Home() {
               alt="Gifts"
               width={1200}
               height={400}
-              className="w-full h-64 object-cover"
+              className="w-full h-80 object-cover object-[0%_10%]"
             />
           </div>
           <TextSection id="gifts" heading="Подарунки" imageUrl={!isMobileDevice ? "/img/hug-smile.jpg" : undefined}>
@@ -319,14 +319,14 @@ export default function Home() {
           {/* Mobile image for location section */}
           <div className="md:hidden w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] mb-8">
             <Image
-              src="/img/hug-theatre.jpg"
+              src="/img/hands.jpg"
               alt="Location"
               width={1200}
               height={400}
               className="w-full h-64 object-cover"
             />
           </div>
-          <TextSection id="location" heading="Локація" imageUrl={!isMobileDevice ? "/img/hug-theatre.jpg" : undefined}>
+          <TextSection id="location" heading="Локація" imageUrl={!isMobileDevice ? "/img/hands.jpg" : undefined}>
             <p className="mb-2">
               Зустрічаємося в РАГС №1 на ВДНГ — унікальній, просторій та вишуканій залі з видом на Виставковий центр та сад.
             </p>
@@ -340,7 +340,7 @@ export default function Home() {
             <GoogleMapComponent className="mt-6" />
           </TextSection>
 
-          <TextSection id="faq" heading="Питання та відповіді" imageUrl={!isMobileDevice ? "/img/main-kiss.jpg" : undefined}>
+          <TextSection id="faq" heading="Питання та відповіді" imageUrl={!isMobileDevice ? "/img/hands.jpg" : undefined}>
             <div className="flex flex-col gap-14">
               <QuestionAndAnswer
                 question="Як пройти в ресторан після закінчення церемонії?"
@@ -358,13 +358,8 @@ export default function Home() {
               />
 
               <QuestionAndAnswer
-                question="Де зупинитися гостям?"
-                answer="Поруч з РАГС №1 на ВДНГ розташована велика платна парковка. Також можна скористатися громадським транспортом — найближча станція метро 'Виставковий центр'."
-              />
-
-              <QuestionAndAnswer
                 question="Коли дарувати подарунки?"
-                answer="Поруч з РАГС №1 на ВДНГ розташована велика платна парковка. Також можна скористатися громадським транспортом — найближча станція метро 'Виставковий центр'."
+                answer="Ви зможете особисто подарувати нам подарунки після початку святкового бенкету, приблизно о 15:00 після оголошення ведучого."
               />
 
               <QuestionAndAnswer
@@ -446,7 +441,7 @@ export default function Home() {
               alt="FAQ"
               width={1200}
               height={400}
-              className="w-full h-64 object-cover"
+              className="w-full h-80 object-cover object-[0%_15%]"
             />
           </div>
         </section>
