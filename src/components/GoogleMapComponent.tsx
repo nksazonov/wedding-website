@@ -8,7 +8,7 @@ interface GoogleMapComponentProps {
 }
 
 export default function GoogleMapComponent({ className }: GoogleMapComponentProps) {
-  const [showInfoWindow, setShowInfoWindow] = useState(true); // Open by default
+  const [showInfoWindow, setShowInfoWindow] = useState(false);
 
   const position = { lat: 50.37837846548359, lng: 30.47600069307373 };
 
@@ -34,7 +34,7 @@ export default function GoogleMapComponent({ className }: GoogleMapComponentProp
             position={position}
             onCloseClick={() => setShowInfoWindow(false)}
           >
-            <div className="p-2 pt-0">
+            <div className="p-2 pt-0 relative -top-2">
               <h3 className="font-bold text-lg mb-2 font-[Cormorant_Infant]">РАГС №1 на ВДНГ</h3>
               <p className="text-sm mb-2 font-[Inter]">Павільйон №8, права сторона головної алеї</p>
               <a
