@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Cormorant_Infant, Inter, Marck_Script } from "next/font/google";
+import GoogleMapsProvider from '@/components/GoogleMapsProvider';
 import "./globals.css";
 
 const geistSans = Geist({
@@ -46,7 +47,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${cormorantInfant.variable} ${inter.variable} ${marckScript.variable} antialiased`}
       >
-        {children}
+        <GoogleMapsProvider>
+          {children}
+        </GoogleMapsProvider>
       </body>
     </html>
   );

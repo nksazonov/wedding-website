@@ -13,6 +13,7 @@ import { setImageChangeCallback } from '@/hooks/useImageObserver';
 import { useCountdown } from '@/hooks/useCountdown';
 import guestsMap from '../../public/data/guestsMap';
 import Image from 'next/image';
+import GoogleMapComponent from '@/components/GoogleMapComponent';
 
 
 // Helper function to check if device is mobile
@@ -259,9 +260,7 @@ export default function Home() {
               Дістатися до головного входу ВДНГ можна на метро (станція &quot;Виставковий центр&quot;) або на автомобілі, для яких поруч розташована велика платна парковка.
             </p>
 
-            <span className="text-red-500 font-bold">TODOTODOTODO</span><br />
-            Google MAPS
-            < br/><span className="text-red-500 font-bold">TODOTODOTODO</span>
+            <GoogleMapComponent className="mt-6" />
           </TextSection>
 
           <TextSection id="faq" heading="Питання та відповіді" imageUrl={!isMobile() ? "/img/main-kiss.jpg" : undefined}>
