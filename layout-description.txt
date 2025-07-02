@@ -1,0 +1,159 @@
+WEDDING WEBSITE LAYOUT DESCRIPTION
+====================================
+
+## OVERALL STRUCTURE
+
+The wedding website uses a split-screen desktop layout divided into two main panels:
+
+### LEFT PANEL (Fixed, ~60% width)
+- **Position**: Fixed to the left side, occupying about 60% of screen width
+- **Height**: Full viewport height
+- **Content**: Large background image with text overlay
+- **Behavior**: Static position, image changes based on scroll position in right panel
+
+### RIGHT PANEL (Scrollable, ~40% width)
+- **Position**: Takes remaining 40% of screen width on the right
+- **Height**: Minimum full viewport height, extends as content requires
+- **Content**: Wedding information sections
+- **Behavior**: Scrollable content that triggers image changes in left panel
+
+## DETAILED LAYOUT BREAKDOWN
+
+### NAVIGATION SYSTEM
+**Menu Button**:
+- Fixed position at top-left corner (small offset from edges)
+- Pill-shaped button with hamburger icon and "МЕНЮ" text
+- Semi-transparent white background with hover effects
+- High z-index for visibility over all content
+
+**Slide Panel**:
+- 20% viewport width sliding panel from left edge
+- Contains couple names header with close button
+- Navigation list with 6 main sections
+- Slide and fade animation (300ms duration)
+- Dark overlay behind panel when open
+- Body scroll lock when active
+
+### LEFT PANEL DETAILS
+**Background Image System**:
+- Full-panel background image with cover sizing
+- Smooth cross-fade transitions (1.5s duration) between different images
+- Subtle lighting gradient overlay on top portion
+- Dark gradient overlay at bottom for text readability
+
+**Text Overlay**:
+- Positioned at bottom-left with generous margins
+- Large decorative script font for couple names
+- Smaller subtitle text below names
+- White text with high contrast against dark overlay
+
+### RIGHT PANEL STRUCTURE
+
+**Main Wedding Info Section** (Full viewport height):
+- Background bohemian pattern image
+- Centered content layout with two variations:
+  
+  *Default Layout*:
+  - Day name in large elegant font
+  - Date in matching large font
+  - Location in smaller font
+  - Countdown/status text in center
+  
+  *Guest-Specific Layout*:
+  - Guest name in large bold font (replaces date position)
+  - Invitation message in smaller italic font
+  - Date and location moved below with spacing
+  - Same countdown/status functionality
+
+- Animated scroll indicator at bottom with bouncing chevron
+- Fixed positioning for scroll indicator
+
+**Scrollable Content Area**:
+- Container with padding for comfortable reading
+- Multiple content sections stacked vertically
+
+### CONTENT SECTIONS
+
+**TextSection Component Structure**:
+- Semi-transparent white background with backdrop blur
+- Rounded corners with generous padding
+- Large centered heading in elegant serif font
+- Body content in readable sans-serif font
+- Large bottom margin between sections
+- Optional image change trigger on scroll intersection
+
+**Dress Code Section**:
+- Standard text content
+- Color palette grid (2 columns)
+- Each color item: circular color swatch + bold color name
+- Additional styling guidance text
+
+**Schedule Section**:
+- List of time-based items
+- Two-column layout: fixed-width time column + flexible activity column
+- Time in large elegant font, activities in standard body font
+- Consistent vertical spacing between items
+
+**FAQ Section**:
+- Custom question-answer components
+- Questions in large elegant font (non-bold)
+- Answers with right chevron icon + standard body text
+- Large spacing between Q&A pairs instead of dividers
+
+## TYPOGRAPHY SYSTEM
+
+**Font Families**:
+- Decorative script: "Marck Script" (couple names, large headings)
+- Elegant serif: "Cormorant Infant" (dates, headings, questions)
+- Clean sans-serif: "Inter" (body text, navigation, answers)
+
+**Font Sizes**:
+- Extra large: Couple names, main dates
+- Large: Section headings, schedule times
+- Medium: Questions, subheadings
+- Standard: Body text, navigation
+
+## INTERACTIVE BEHAVIORS
+
+**Image Change System**:
+- Intersection Observer triggers on TextSections with imageUrl
+- Threshold calculated as 50% of viewport visibility
+- Smooth cross-fade transitions in left panel
+- Multiple images mapped to different content sections
+
+**Scroll Behavior**:
+- Smooth scrolling for navigation links
+- Body scroll lock during menu panel open
+- Intersection-based image triggering
+- Fixed positioning for left panel during right panel scroll
+
+**Menu System**:
+- Toggle-based slide panel with overlay
+- Smooth navigation to sections with scroll behavior
+- Auto-close after navigation selection
+- Hover states on interactive elements
+
+## RESPONSIVE CONSIDERATIONS
+
+The layout is primarily designed for desktop viewing with:
+- Fixed percentage-based split between left and right panels
+- Large typography optimized for desktop screens
+- Complex overlay and intersection systems requiring desktop interaction patterns
+- Menu panel sized for desktop viewport widths
+
+## COLOR SCHEME
+
+**Background Colors**:
+- White base with semi-transparent overlays
+- Bohemian pattern backgrounds for texture
+- Dark gradient overlays for text contrast
+
+**Text Colors**:
+- Dark gray for primary text
+- Medium gray for secondary text
+- White for overlay text on dark backgrounds
+
+**Interactive Elements**:
+- Semi-transparent whites for buttons and panels
+- Subtle hover state changes
+- Color palette includes earth tones: olive, chocolate, caramel, beige tones
