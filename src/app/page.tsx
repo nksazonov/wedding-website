@@ -109,7 +109,7 @@ export default function Home() {
               phase={phase}
               displayText={displayText}
               formattedCountdown={formattedCountdown}
-              imageUrl="/img/main-kiss.jpg"
+              imageUrl="/img/main-kiss.JPG"
             />
           </main>
 
@@ -178,7 +178,7 @@ export default function Home() {
               phase={phase}
               displayText={displayText}
               formattedCountdown={formattedCountdown}
-              imageUrl="/img/main-kiss.jpg"
+              imageUrl="/img/main-kiss.JPG"
             />
           </main>
         </>
@@ -394,7 +394,7 @@ export default function Home() {
             </div>
           </TextSection>
 
-          <TextSection id="photo-upload" heading="Фотографії з події" imageUrl={!isMobile() ? "/img/main-kiss.jpg" : undefined}>
+          <TextSection id="photo-upload" heading="Фотографії з події" imageUrl={!isMobile() ? "/img/main-kiss.JPG" : undefined}>
             <p className="mb-2">
               Заздалегідь просимо усіх гостей робити якомога більше фотографій під час події, і опісля весілля завантажити їх на платформу для обміну фотографіями.
             </p>
@@ -437,7 +437,7 @@ export default function Home() {
           {/* Mobile image for faq section */}
           <div className="md:hidden w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] mb-8">
             <Image
-              src="/img/main-kiss.jpg"
+              src="/img/main-kiss.JPG"
               alt="FAQ"
               width={1200}
               height={400}
