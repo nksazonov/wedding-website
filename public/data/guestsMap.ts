@@ -26,8 +26,11 @@ const guestsMap: GuestsMap = {
   'eduard': {
     text: 'Друже Едуарде'
   },
-  'maksym': {
-    text: 'Шановний Максиме'
+  'maxm': {
+    text: 'Шановний Максиме М.'
+  },
+  'maxp': {
+    text: 'Шановний Максиме П.'
   },
   'danylo': {
     text: 'Шановний Данило'
