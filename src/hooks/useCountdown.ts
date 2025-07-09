@@ -14,8 +14,8 @@ interface WeddingCountdown {
 }
 
 // Wedding constants
-const WEDDING_START = new Date('2025-09-03T13:30:00+02:00'); // 13:30 CET+1
-const WEDDING_END = new Date('2025-09-03T22:00:00+02:00'); // 22:00 CET+1
+const WEDDING_START = new Date('2025-09-03T13:15:00+03:00'); // 13:15 CET+1
+const WEDDING_END = new Date('2025-09-03T22:00:00+03:00'); // 22:00 CET+1
 
 // Phase texts
 const PHASE_TEXTS = {
@@ -38,7 +38,7 @@ export function useCountdown(): WeddingCountdown {
         // Before wedding
         setPhase('before');
         const difference = startTime - currentTime;
-        
+
         if (difference > 0) {
           const days = Math.floor(difference / (1000 * 60 * 60 * 24));
           const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -64,16 +64,16 @@ export function useCountdown(): WeddingCountdown {
   }, []);
 
   // Generate display text based on phase
-  const displayText = phase === 'before' 
-    ? '' 
+  const displayText = phase === 'before'
+    ? ''
     : PHASE_TEXTS[phase as keyof typeof PHASE_TEXTS];
 
   // Generate formatted countdown string
   const formattedCountdown = `${timeLeft.days} ДН ${timeLeft.hours} ГОД ${timeLeft.minutes} ХВ`;
 
-  return { 
-    timeLeft, 
-    phase, 
+  return {
+    timeLeft,
+    phase,
     displayText,
     formattedCountdown
   };
