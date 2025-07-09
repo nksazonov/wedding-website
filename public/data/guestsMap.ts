@@ -11,8 +11,8 @@ const guestsMap: GuestsMap = {
   'tetyana-lyudmyla': {
     text: 'Люба мамо Тетяно та бабусе Людмило'
   },
-  'inna': {
-    text: 'Люба Хрещена Інно'
+  'inna-oleg': {
+    text: 'Любі Хрещена Інно та Олеже'
   },
   'danylo-oleksandra': {
     text: 'Друзі Данило та Олександро'
