@@ -59,9 +59,6 @@ const guestsMap: GuestsMap = {
   'anton-m': {
     text: 'Дорогий брате Антоне'
   },
-  'iryna-kevin': {
-    text: 'Дорогі Ірино та Кевіне'
-  },
   'vladyslava': {
     text: 'Люба сестро Владо'
   },
@@ -74,11 +71,8 @@ const guestsMap: GuestsMap = {
   'sofiya': {
     text: 'Дорога подруго Соню'
   },
-  'viktoriya-danylo': {
-    text: 'Дорогі Вікторіє та Даниле'
-  },
-  'svitlana-ruslan': {
-    text: 'Дорогі Світлано та Руслане'
+  'm-family': {
+    text: 'Дорогі Олено, Юрію, Діано та Андрію'
   },
   'hennadiy': {
     text: 'Дорогий Геннадію'
