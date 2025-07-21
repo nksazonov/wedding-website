@@ -76,6 +76,9 @@ const guestsMap: GuestsMap = {
   },
   'hennadiy': {
     text: 'Дорогий Геннадію'
+  },
+  'sis-oleksandra': {
+    text: 'Люба сестро Олександро'
   }
 };
 
