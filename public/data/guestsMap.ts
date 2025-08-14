@@ -8,8 +8,11 @@ const guestsMap: GuestsMap = {
   'vitaliy': {
     text: 'Любий батьку Віталію'
   },
-  'tetyana-lyudmyla': {
-    text: 'Люба мамо Тетяно та бабусе Людмило'
+  'tetyana-oleksiy': {
+    text: 'Люба мамо Тетяно та Олексію'
+  },
+  'grandma-lyudmyla': {
+    text: 'Люба бабусю Людмило'
   },
   'inna-oleg': {
     text: 'Любі Хрещена Інно та Олеже'
@@ -79,7 +82,10 @@ const guestsMap: GuestsMap = {
   },
   'sis-oleksandra': {
     text: 'Люба сестро Олександро'
-  }
+  },
+  'aunt-lyudmyla': {
+    text: 'Люба тітко Людмило'
+  },
 };
 
 export default guestsMap;
