@@ -401,11 +401,8 @@ export default function Home() {
             <p className="mb-4">
               Також ви можете переглянути та завантажити фотографії, що зробили інші гості.
             </p>
-            <p className="text-sm text-gray-400">
-              ⏳ Посилання на платформу для обміну фотографіями буде доступним в цій секції після весілля ⏳
-            </p>
-            {/* <a
-              href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&pp=ygUJcmljayByb2xs"
+            <a
+              href="https://photos.app.goo.gl/1Da7mKxnJZuqzNvf6"
               target="_blank"
               rel="noopener noreferrer"
               className="block w-full max-w-3xs mx-auto aspect-square mb-2 hover:shadow-lg">
@@ -418,12 +415,10 @@ export default function Home() {
               />
             </a>
             <p className='mb-6 text-gray-400 text-sm'>
-              Для переходу на платформу для обміну фотографіями, відскануйте QR-код камерою телефону або натисніть на нього
-            </p> */}
-            {/* <p>
-              Посилання на матеріали нашого фотографа:
+              Для переходу на платформу для обміну фотографіями натисніть на QR-код або відскануйте його камерою телефону.
             </p>
-            <p>
+            <p className='mb-6'>
+              Посилання на матеріали нашого фотографа:
               <a
                 target="_blank"
                 rel="noopener noreferrer"
@@ -431,7 +426,17 @@ export default function Home() {
               >
                 ⏳ скоро стане доступним ⏳
               </a>
-            </p> */}
+            </p>
+            <p>
+              Посилання на матеріали нашого відеографа:
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 underline cursor-not-allowed pointer-events-none"
+              >
+                ⏳ скоро стане доступним ⏳
+              </a>
+            </p>
           </TextSection>
 
           {/* Mobile image for faq section */}
